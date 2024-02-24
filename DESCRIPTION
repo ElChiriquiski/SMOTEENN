@@ -1,0 +1,13 @@
+Package: SMOTEENN
+Type: Package
+Title: Synthetic Minority Over-sampling TEchnique & Edited Nearest Neighbors (ENN) Down Sampling
+Version: 0.1.0
+Author: Daniel Salinas
+Maintainer: Daniel Salinas <danielsalinas72410@gmail.com>
+URL: https://github.com/ElChiriquiski/ENN
+Description: Implements the Edited Nearest Neighbors (ENN) algorithm for majority class down-sampling to address imbalanced class distributions. Also combines Synthetic Minority Over-sampling TEchnique (SMOTE) with ENN. SMOTE is calculated using the smotefamily R package.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+Imports: doParallel, foreach, dplyr, magrittr, tidyr, knitr, smotefamily
+RoxygenNote: 7.3.1

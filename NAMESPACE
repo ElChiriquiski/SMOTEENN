@@ -1,0 +1,12 @@
+#exportPattern("^[[:alpha:]]+")
+export(SMOTEENN)
+export(ENN)
+importFrom(doParallel, registerDoParallel)
+importFrom(dplyr, select, everything, rename)
+importFrom(foreach, foreach)
+importFrom(foreach, "%dopar%")
+importFrom(knitr, kable)
+importFrom(tidyr, separate)
+importFrom(magrittr, "%>%")
+importFrom(smotefamily, SMOTE)
+
