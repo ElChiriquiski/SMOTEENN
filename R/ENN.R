@@ -107,17 +107,10 @@ ENN <- function(data) {
   # Combine ENN downsampled majority with minority class
   dataENN <- rbind(data, edited_data)
 
-  # # Move y to the beginning of df
-  # dataENN <- dataENN %>%
-  #   select(y, everything())
   # Identify the name of the last column
   last_column <- names(data)[ncol(data)]
   # Move the last column to the beginning
   data <- data[, c(last_column, setdiff(names(data), last_column))]
-
-  # # Rename the column
-  # dataENN <- dataENN %>%
-  #   rename(y = y)
 
   # Make the variables numeric and create a data frame
   edited_data <- as.data.frame(apply(dataENN, 2, as.numeric))
