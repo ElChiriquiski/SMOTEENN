@@ -63,7 +63,6 @@ library(tidyr)
 library(magrittr)
 
 ENN <- function(data) {
-  y = data$y
   majority_class <- names(sort(table(data$y), decreasing = TRUE))[1]
   majority_indices <- which(data$y == majority_class)
   majority_count <- table(data$y)[majority_class]
@@ -87,13 +86,18 @@ ENN <- function(data) {
   # Make data frame
   edited_data <- as.data.frame(edited_data)
 
-  # Move y to the beginning of the data frame
-  edited_data <- edited_data %>%
-    select(y, everything())
+  # Identify the name of the last column
+  last_column <- names(edited_data)[ncol(edited_data)]
+  # Move the last column to the beginning
+  edited_data <- edited_data[, c(last_column, setdiff(names(edited_data), last_column))]
 
   edited_data <- as.data.frame(apply(edited_data, 2, as.numeric))
 
-  cat("Frequency down sampled for the majority class '", majority_class, "':", majority_count - sum(edited_data$y), "\n")
+  # Calculate the frequency difference
+  freq_diff <- majority_count - as.numeric(nrow(edited_data))
+
+  # Print the result
+  cat("Frequency down sampled for the majority class '", majority_class, "':", freq_diff, "\n")
 
   # Delete the majority instances
   data <- data[data$y != edited_data$y[1], ]
@@ -103,13 +107,17 @@ ENN <- function(data) {
   # Combine ENN downsampled majority with minority class
   dataENN <- rbind(data, edited_data)
 
-  # Move y to the beginning of df
-  dataENN <- dataENN %>%
-    select(y, everything())
+  # # Move y to the beginning of df
+  # dataENN <- dataENN %>%
+  #   select(y, everything())
+  # Identify the name of the last column
+  last_column <- names(data)[ncol(data)]
+  # Move the last column to the beginning
+  data <- data[, c(last_column, setdiff(names(data), last_column))]
 
-  # Rename the column
-  dataENN <- dataENN %>%
-    rename(y = y)
+  # # Rename the column
+  # dataENN <- dataENN %>%
+  #   rename(y = y)
 
   # Make the variables numeric and create a data frame
   edited_data <- as.data.frame(apply(dataENN, 2, as.numeric))
